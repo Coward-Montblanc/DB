@@ -12,6 +12,3 @@ select SUM(saleprice) from Customer,Orders Where Customer.custid = Orders.custid
 
 /*박지성이 구매한 도서의 수*/
 select COUNT(*) from Customer, Orders WHERE Customer.custid = Orders.custid AND Customer.name Like '박지성';
-
-/*박지성이 구매한 옷의 수*/
-select COUNT(publisher) from Book, Customer, Orders where Book.bookid = Orders.bookid AND Customer.custid = Orders.custid AND Customer.name LIKE '박지성';
