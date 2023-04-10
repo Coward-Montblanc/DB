@@ -1,20 +1,40 @@
-/*¸¶´ç¼­Á¡ µµ¼­ÀÇ ÃÑ ¼ö*/
+/*ë§ˆë‹¹ì„œì  ë„ì„œì˜ ì´ ìˆ˜*/
 select COUNT(*) from Book;
 
-/*¸¶´ç¼­Á¡¿¡ µµ¼­¸¦ Ãâ°íÇÏ´Â ÃâÆÇ»çÀÇ ÃÑ ¼ö*/
+/*ë§ˆë‹¹ì„œì ì— ë„ì„œë¥¼ ì¶œê³ í•˜ëŠ” ì¶œíŒì‚¬ì˜ ì´ ìˆ˜*/
 select count(distinct publisher) from Book;
 
-/*¸ðµç °í°´ÀÇ ÀÌ¸§, ÁÖ¼Ò*/
+/*ëª¨ë“  ê³ ê°ì˜ ì´ë¦„, ì£¼ì†Œ*/
 select name, address from Customer;
 
-/*2020³â 7¿ù 4ÀÏ ºÎÅÍ 7¿ù 7ÀÏ »çÀÌ¿¡ ÁÖ¹® ¹ÞÀº µµ¼­ÀÇ ÁÖ¹® ¹øÈ£*/
+/*2020ë…„ 7ì›” 4ì¼ ë¶€í„° 7ì›” 7ì¼ ì‚¬ì´ì— ì£¼ë¬¸ ë°›ì€ ë„ì„œì˜ ì£¼ë¬¸ ë²ˆí˜¸*/
 select orderid from Orders where orderdate between '2020-07-04' and '2020-07-07';
 
-/*2020³â 7¿ù 4ÀÏ ºÎÅÍ 7¿ù 7ÀÏ »çÀÌ¿¡ ÁÖ¹® ¹ÞÀº µµ¼­¸¦ Á¦¿ÜÇÑ µµ¼­ÀÇ ÁÖ¹® ¹øÈ£*/
+/*2020ë…„ 7ì›” 4ì¼ ë¶€í„° 7ì›” 7ì¼ ì‚¬ì´ì— ì£¼ë¬¸ ë°›ì€ ë„ì„œë¥¼ ì œì™¸í•œ ë„ì„œì˜ ì£¼ë¬¸ ë²ˆí˜¸*/
 select orderid from Orders where orderdate not between '2020-07-04' and '2020-07-07';
 
-/*¼ºÀÌ '±è'¾¾ÀÎ °í°´ÀÇ ÀÌ¸§°ú ÁÖ¼Ò*/
-select name, address from Customer where name like '±è%';
+/*ì„±ì´ 'ê¹€'ì”¨ì¸ ê³ ê°ì˜ ì´ë¦„ê³¼ ì£¼ì†Œ*/
+select name, address from Customer where name like 'ê¹€%';
 
-/*¼ºÀÌ '±è'¾¾ÀÌ°í ÀÌ¸§ÀÌ '¾Æ'·Î ³¡³ª´Â °í°´ÀÇ ÀÌ¸§°ú ÁÖ¼Ò*/
-select name, address from Customer where name like '±è%' and name like '%¾Æ';
+/*ì„±ì´ 'ê¹€'ì”¨ì´ê³  ì´ë¦„ì´ 'ì•„'ë¡œ ëë‚˜ëŠ” ê³ ê°ì˜ ì´ë¦„ê³¼ ì£¼ì†Œ*/
+select name, address from Customer where name like 'ê¹€%' and name like '%ì•„';
+
+/*ì£¼ë¬¸í•˜ì§€ ì•Šì€ ê³ ê°ì˜ ì´ë¦„(ë¶€ì†ì§ˆì˜ ì‚¬ìš©)*/
+select name from Customer where custid NOT in (select custid from orders);
+
+/*ì£¼ë¬¸ ê¸ˆì•¡ì˜ ì´ì•¡ê³¼ ì£¼ë¬¸ì˜ í‰ê·  ê¸ˆì•¡*/
+select sum(saleprice), avg(saleprice) from orders;
+
+/*ê³ ê°ì˜ ì´ë¦„ê³¼ ê³ ê°ë³„ êµ¬ë§¤ì•¡*/
+select name, sum(saleprice) from Customer, Orders where customer.custid = orders.custid group by name;
+
+/*ê³ ê°ì˜ ì´ë¦„ê³¼ ê³ ê°ì´ êµ¬ë§¤í•œ ë„ì„œ ëª©ë¡*/
+select customer.name, book.bookname from orders left join customer on orders.custid = customer.custid left join book on orders.bookid = book.bookid;
+
+/*ë„ì„œì˜ ê°€ê²©(Bookí…Œì´ë¸”)ê³¼ íŒë§¤ê°€ê²©(Ordersí…Œì´ë¸”)ì˜ ì°¨ì´ê°€ ê°€ìž¥ ë§Žì€ ì£¼ë¬¸*/
+select * from book ,orders where book.bookid = orders.bookid and price - saleprice = ( Select MAX(price - saleprice) from book ,orders where book.bookid = orders.bookid);
+
+/*ë„ì„œì˜ íŒë§¤ì•¡ í‰ê· ë³´ë‹¤ ìžì‹ ì˜ êµ¬ë§¤ì•¡ í‰ê· ì´ ë” ë†’ì€ ê³ ê°ì˜ ì´ë¦„*/
+select name from customer where custid in (select custid from orders,book where orders.bookid = book.bookid group by custid having avg(price) > (select avg(price) from orders,book where orders.bookid = book.bookid));
+
+/*select name, avg(saleprice) from customer, orders where customer.custid=orders.custid group by name having avg(saleprice) > (select avg(saleprice)from orders);*/
