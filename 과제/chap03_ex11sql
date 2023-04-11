@@ -1,18 +1,18 @@
-/*Å×ÀÌºí »ı¼º : ±ØÀå (theater)*/
+/*í…Œì´ë¸” ìƒì„± : ê·¹ì¥ (theater)*/
 CREATE TABLE theater (
  theaterNum INTEGER PRIMARY KEY,
  theaterName VARCHAR(20),
  theaterLocation VARCHAR(20)
 );
 
-/*Å×ÀÌºí »ı¼º : °í°´ (Users)*/
+/*í…Œì´ë¸” ìƒì„± : ê³ ê° (Users)*/
 CREATE TABLE users (
  userNum INTEGER PRIMARY KEY,
  userName VARCHAR(20),
  userAddress VARCHAR(20)
 );
 
-/*Å×ÀÌºí »ı¼º : »ó¿µ°ü (Cinema)*/
+/*í…Œì´ë¸” ìƒì„± : ìƒì˜ê´€ (Cinema)*/
 CREATE TABLE cinema (
  theaterNum INTEGER NOT NULL,
  cinemaNum INTEGER PRIMARY KEY check(cinemaNum<=10 and cinemaNum>=1),
@@ -23,7 +23,7 @@ CREATE TABLE cinema (
  REFERENCES theater (theaterNum)
 );
 
-/*Å×ÀÌºí »ı¼º : ¿¹¾à (reservation)*/
+/*í…Œì´ë¸” ìƒì„± : ì˜ˆì•½ (reservation)*/
 CREATE TABLE reservation (
  theaterNum INTEGER NOT NULL,
  cinemaNum INTEGER NOT NULL check(cinemaNum<=10 and cinemaNum>=1),
@@ -38,31 +38,31 @@ CREATE TABLE reservation (
  REFERENCES Cusers (userNum)
 );
 
-/*Å×ÀÌºí µ¥ÀÌÅÍ »ı¼º : ±ØÀå (theater)*/
+/*í…Œì´ë¸” ë°ì´í„° ìƒì„± : ê·¹ì¥ (theater)*/
 insert into theater(theaterNum, theaterName, theaterLocation) 
-	values(1,"·Ôµ¥", "Àá½Ç");
+	values(1,"ë¡¯ë°", "ì ì‹¤");
 insert into theater(theaterNum, theaterName, theaterLocation) 
-	values(2,"¸Ş°¡", "°­³²");
+	values(2,"ë©”ê°€", "ê°•ë‚¨");
 insert into theater(theaterNum, theaterName, theaterLocation) 
-	values(3,"´ëÇÑ", "Àá½Ç");
+	values(3,"ëŒ€í•œ", "ì ì‹¤");
  
-/*Å×ÀÌºí µ¥ÀÌÅÍ »ı¼º : »ó¿µ°ü (cinema)*/
+/*í…Œì´ë¸” ë°ì´í„° ìƒì„± : ìƒì˜ê´€ (cinema)*/
 insert into cinema(theaterNum, cinemaNum, movieName, price, seat)
-	values(1, 1, "¾î·Á¿î ¿µÈ­", 15000, 48);
+	values(1, 1, "ì–´ë ¤ìš´ ì˜í™”", 15000, 48);
 insert into cinema(theaterNum, cinemaNum, movieName, price, seat)
-	values(3, 3, "¸ÚÁø ¿µÈ­", 7500, 120);
+	values(3, 3, "ë©‹ì§„ ì˜í™”", 7500, 120);
 insert into cinema(theaterNum, cinemaNum, movieName, price, seat)
-	values(3, 2, "Àç¹Õ´Â ¿µÈ­", 8000, 110);
+	values(3, 2, "ì¬ë°ŒëŠ” ì˜í™”", 8000, 110);
  
-/*Å×ÀÌºí µ¥ÀÌÅÍ »ı¼º : °í°´ (users)*/
+/*í…Œì´ë¸” ë°ì´í„° ìƒì„± : ê³ ê° (users)*/
 insert into users(userNum, userName, userAddress)
-	values(3,"È«±æµ¿","°­³²");
+	values(3,"í™ê¸¸ë™","ê°•ë‚¨");
 insert into users(userNum, userName, userAddress)
-	values(4,"±èÃ¶¼ö","Àá½Ç");
+	values(4,"ê¹€ì² ìˆ˜","ì ì‹¤");
 insert into users(userNum, userName, userAddress)
-	values(9,"¹Ú¿µÈñ","°­³²");
+	values(9,"ë°•ì˜í¬","ê°•ë‚¨");
  
-/*Å×ÀÌºí µ¥ÀÌÅÍ »ı¼º : ¿¹¾à (reservation)*/
+/*í…Œì´ë¸” ë°ì´í„° ìƒì„± : ì˜ˆì•½ (reservation)*/
 insert into reservation(theaterNum, cinemaNum, userNum, seatNum, date)
 	values(3,2,3,15,"2020-09-01");
 insert into reservation(theaterNum, cinemaNum, userNum, seatNum, date)
@@ -71,59 +71,59 @@ insert into reservation(theaterNum, cinemaNum, userNum, seatNum, date)
 	values(1,1,9,48,"2020-09-01");
  
 
-/*¸ğµç ±ØÀåÀÇ ÀÌ¸§°ú À§Ä¡¸¦ º¸ÀÌ½Ã¿À.*/
+/*ëª¨ë“  ê·¹ì¥ì˜ ì´ë¦„ê³¼ ìœ„ì¹˜ë¥¼ ë³´ì´ì‹œì˜¤.*/
 SELECT theaterName, theaterLocation FROM theater;
 
-/*'Àá½Ç'¿¡ ÀÖ´Â ±ØÀåÀ» º¸ÀÌ½Ã¿À.*/
-SELECT * FROM theater WHERE theaterLocation = 'Àá½Ç';
+/*'ì ì‹¤'ì— ìˆëŠ” ê·¹ì¥ì„ ë³´ì´ì‹œì˜¤.*/
+SELECT * FROM theater WHERE theaterLocation = 'ì ì‹¤';
 
-/*'Àá½Ç'¿¡ »ç´Â °í°´ÀÇ ÀÌ¸§À» ¿À¸§Â÷¼øÀ¸·Î º¸ÀÌ½Ã¿À.*/
-SELECT userName FROM users WHERE userAddress = 'Àá½Ç';
+/*'ì ì‹¤'ì— ì‚¬ëŠ” ê³ ê°ì˜ ì´ë¦„ì„ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ë³´ì´ì‹œì˜¤.*/
+SELECT userName FROM users WHERE userAddress = 'ì ì‹¤';
 
-/*°¡°İÀÌ 8,000¿ø ÀÌÇÏÀÎ ¿µÈ­ÀÇ ±ØÀå¹øÈ£, »ó¿µ°ü¹øÈ£, ¿µÈ­Á¦¸ñÀ» º¸ÀÌ½Ã¿À.*/
+/*ê°€ê²©ì´ 8,000ì› ì´í•˜ì¸ ì˜í™”ì˜ ê·¹ì¥ë²ˆí˜¸, ìƒì˜ê´€ë²ˆí˜¸, ì˜í™”ì œëª©ì„ ë³´ì´ì‹œì˜¤.*/
 SELECT theaterNum, cinemaNum, movieName FROM cinema WHERE price <= 8000;
 
-/*±ØÀå À§Ä¡¿Í °í°´ÀÇ ÁÖ¼Ò°¡ °°Àº °í°´À» º¸ÀÌ½Ã¿À.*/
+/*ê·¹ì¥ ìœ„ì¹˜ì™€ ê³ ê°ì˜ ì£¼ì†Œê°€ ê°™ì€ ê³ ê°ì„ ë³´ì´ì‹œì˜¤.*/
 SELECT DISTINCT theater.theaterLocation, users.userName FROM theater, users WHERE theater.theaterLocation = users.userAddress;
 
 
-/*±ØÀåÀÇ ¼ö´Â ¸î °³ÀÎ°¡?*/
+/*ê·¹ì¥ì˜ ìˆ˜ëŠ” ëª‡ ê°œì¸ê°€?*/
 SELECT COUNT(*) FROM theater;
 
-/*»ó¿µµÇ´Â ¿µÈ­ÀÇ Æò±Õ °¡°İÀº ¾ó¸¶ÀÎ°¡?*/
+/*ìƒì˜ë˜ëŠ” ì˜í™”ì˜ í‰ê·  ê°€ê²©ì€ ì–¼ë§ˆì¸ê°€?*/
 SELECT ROUND(AVG(price)) FROM cinema;
 
-/*2020³â 9¿ù 1ÀÏ¿¡ ¿µÈ­¸¦ °ü¶÷ÇÑ °í°´ÀÇ ¼ö´Â ¾ó¸¶ÀÎ°¡?*/
+/*2020ë…„ 9ì›” 1ì¼ì— ì˜í™”ë¥¼ ê´€ëŒí•œ ê³ ê°ì˜ ìˆ˜ëŠ” ì–¼ë§ˆì¸ê°€?*/
 SELECT COUNT(*) FROM reservation, users WHERE reservation.userNum = users.userNum AND date = '2020-09-01';
 
 
-/*'´ëÇÑ' ±ØÀå¿¡¼­ »ó¿µµÈ ¿µÈ­Á¦¸ñÀ» º¸ÀÌ½Ã¿À.*/
-SELECT movieName FROM theater, cinema WHERE theater.theaterName = '´ëÇÑ' AND theater.theaterNum = cinema.theaterNum;
+/*'ëŒ€í•œ' ê·¹ì¥ì—ì„œ ìƒì˜ëœ ì˜í™”ì œëª©ì„ ë³´ì´ì‹œì˜¤.*/
+SELECT movieName FROM theater, cinema WHERE theater.theaterName = 'ëŒ€í•œ' AND theater.theaterNum = cinema.theaterNum;
 
-/*'´ëÇÑ' ±ØÀå¿¡¼­ ¿µÈ­¸¦ º» °í°´ÀÇ ÀÌ¸§À» º¸ÀÌ½Ã¿À.*/
-SELECT userName FROM users WHERE userNum IN (SELECT userNum FROM reservation WHERE theaterNum = (SELECT theaterNum FROM theater WHERE theaterName = '´ëÇÑ'));
+/*'ëŒ€í•œ' ê·¹ì¥ì—ì„œ ì˜í™”ë¥¼ ë³¸ ê³ ê°ì˜ ì´ë¦„ì„ ë³´ì´ì‹œì˜¤.*/
+SELECT userName FROM users WHERE userNum IN (SELECT userNum FROM reservation WHERE theaterNum = (SELECT theaterNum FROM theater WHERE theaterName = 'ëŒ€í•œ'));
  
-/*´ëÇÑ ±ØÀåÀÇ ÀüÃ¼ ¼öÀÔÀ» º¸ÀÌ½Ã¿À.*/
-SELECT SUM(price) FROM cinema WHERE cinemaNum IN (SELECT cinemaNum FROM reservation WHERE theaterNum = (SELECT theaterNum FROM theater WHERE theaterName = '´ëÇÑ'));
+/*ëŒ€í•œ ê·¹ì¥ì˜ ì „ì²´ ìˆ˜ì…ì„ ë³´ì´ì‹œì˜¤.*/
+SELECT SUM(price) FROM cinema WHERE cinemaNum IN (SELECT cinemaNum FROM reservation WHERE theaterNum = (SELECT theaterNum FROM theater WHERE theaterName = 'ëŒ€í•œ'));
  
  
-/*±ØÀåº° »ó¿µ°ü ¼ö¸¦ º¸ÀÌ½Ã¿À.*/
+/*ê·¹ì¥ë³„ ìƒì˜ê´€ ìˆ˜ë¥¼ ë³´ì´ì‹œì˜¤.*/
 SELECT theater.theaterName, COUNT(*) FROM cinema JOIN theater ON cinema.theaterNum = theater.theaterNum GROUP BY cinema.theaterNum;
 
-/*'Àá½Ç'¿¡ ÀÖ´Â ±ØÀåÀÇ »ó¿µ°üÀ» º¸ÀÌ½Ã¿À.*/
-SELECT * FROM cinema WHERE theaterNum IN (SELECT theaterNum FROM theater WHERE theaterLocation = 'Àá½Ç');
+/*'ì ì‹¤'ì— ìˆëŠ” ê·¹ì¥ì˜ ìƒì˜ê´€ì„ ë³´ì´ì‹œì˜¤.*/
+SELECT * FROM cinema WHERE theaterNum IN (SELECT theaterNum FROM theater WHERE theaterLocation = 'ì ì‹¤');
 
-/*2020³â09¿ù01ÀÏÀÇ ±ØÀåº° Æò±Õ °ü¶÷ °í°´ ¼ö¸¦ º¸ÀÌ½Ã¿À.*/
+/*2020ë…„09ì›”01ì¼ì˜ ê·¹ì¥ë³„ í‰ê·  ê´€ëŒ ê³ ê° ìˆ˜ë¥¼ ë³´ì´ì‹œì˜¤.*/
 SELECT theater.theaterName, COUNT(*) FROM reservation JOIN theater ON reservation.theaterNum = theater.theaterNum WHERE reservation.date = '2020-09-01' GROUP BY reservation.theaterNum;
 
-/*2020³â09¿ù01ÀÏ¿¡ °¡Àå ¸¹Àº °í°´ÀÌ °ü¶÷ÇÑ ¿µÈ­¸¦ º¸ÀÌ½Ã¿À.*/
+/*2020ë…„09ì›”01ì¼ì— ê°€ì¥ ë§ì€ ê³ ê°ì´ ê´€ëŒí•œ ì˜í™”ë¥¼ ë³´ì´ì‹œì˜¤.*/
 SELECT movieName FROM cinema, reservation WHERE cinema.theaterNum = reservation.theaterNum AND cinema.cinemaNum = reservation.cinemaNum AND date LIKE '2020-09-01' GROUP BY reservation.theaterNum , reservation.cinemaNum; 
 
 
-/*°¢ Å×ÀÌºí¿¡ µ¥ÀÌÅÍ¸¦ »ğÀÔÇÏ´Â INSERT ¹®À» ÇÏ³ª¾¿ ½ÇÇà½ÃÄÑ º¸½Ã¿À.*/
-/*À§¿¡ ´Ù ÀûÀ½*/
+/*ê° í…Œì´ë¸”ì— ë°ì´í„°ë¥¼ ì‚½ì…í•˜ëŠ” INSERT ë¬¸ì„ í•˜ë‚˜ì”© ì‹¤í–‰ì‹œì¼œ ë³´ì‹œì˜¤.*/
+/*ìœ„ì— ë‹¤ ì ìŒ*/
 
-/*¿µÈ­ÀÇ °¡°İÀ» 10%¾¿ ÀÎ»óÇÏ½Ã¿À.*/
+/*ì˜í™”ì˜ ê°€ê²©ì„ 10%ì”© ì¸ìƒí•˜ì‹œì˜¤.*/
 UPDATE cinema SET price = price + (price * 0.1);
 
 
