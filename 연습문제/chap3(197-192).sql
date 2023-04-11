@@ -10,7 +10,7 @@ create table neworders(orderid number, custid number not null, bookid number not
 
 select * from neworders;
 
-/*¼Ó¼º Ãß°¡*/
+/*ì†ì„± ì¶”ê°€*/
 alter table newbook add isbn varchar2(13);
 
 alter table newbook modify isbn number;
@@ -19,21 +19,21 @@ drop table newbook;
 
 select * from book;
 
-insert into book(bookid, bookname, publisher, price) values (11, '½ºÆ÷Ã÷ ÀÇÇĞ', 'ÇÑ¼ÖÀÇÇĞ¼­Àû', 90000);
+insert into book(bookid, bookname, publisher, price) values (11, 'ìŠ¤í¬ì¸  ì˜í•™', 'í•œì†”ì˜í•™ì„œì ', 90000);
 
-insert into book(bookid, bookname, publisher) values (14, '½ºÆ÷Ã÷ ÀÇÇĞ', 'ÇÑ¼ÖÀÇÇĞ¼­Àû');
+insert into book(bookid, bookname, publisher) values (14, 'ìŠ¤í¬ì¸  ì˜í•™', 'í•œì†”ì˜í•™ì„œì ');
 
 select * from imported_book;
 
-/*´ë·®»ğÀÔ*/
+/*ëŒ€ëŸ‰ì‚½ì…*/
 
 insert into book(bookid, bookname, publisher, price) select bookid, bookname, publisher, price from imported_book;
 
 select * from customer;
 
-update customer set address='´ëÇÑ¹Î±¹ ºÎ»ê' where custid=5;
+update customer set address='ëŒ€í•œë¯¼êµ­ ë¶€ì‚°' where custid=5;
 
-update customer set address=(select address from customer where name='±è¿¬¾Æ') where name='¹Ú¼¼¸®';
+update customer set address=(select address from customer where name='ê¹€ì—°ì•„') where name='ë°•ì„¸ë¦¬';
 
 delete from customer where custid=5;
 
