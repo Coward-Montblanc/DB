@@ -1,30 +1,30 @@
-/*¿ÞÂÊ ¿ÜºÎ Á¶ÀÎ*/
+/*ì™¼ìª½ ì™¸ë¶€ ì¡°ì¸*/
 SELECT name, saleprice from customer left outer join orders on customer.custid=orders.custid;
 
-/*¿ÞÂÊ ¿ÜºÎ Á¶ÀÎ(+)*/
+/*ì™¼ìª½ ì™¸ë¶€ ì¡°ì¸(+)*/
 SELECT name, saleprice from customer ,orders where customer.custid=orders.custid(+);
 
-/*°¡Àå ºñ½Ñ µµ¼­ÀÇ °¡°Ý Ç¥½Ã*/
+/*ê°€ìž¥ ë¹„ì‹¼ ë„ì„œì˜ ê°€ê²© í‘œì‹œ*/
 select max(price) from book;
 
-/*°¡Àå ºñ½Ñ µµ¼­ÀÇ ÀÌ¸§*/
+/*ê°€ìž¥ ë¹„ì‹¼ ë„ì„œì˜ ì´ë¦„*/
 select bookname from book where price=35000;
 
-/*°¡Àå ºñ½Ñ µµ¼­ÀÇ ÀÌ¸§*/
+/*ê°€ìž¥ ë¹„ì‹¼ ë„ì„œì˜ ì´ë¦„*/
 select bookname from book where price=(select max(price) from book);
 
-/*µµ¼­¸¦ ÁÖ¹®ÇÑÀûÀÌ ÀÖ´Â °í°´ ¾ÆÀÌµð Ã£±â*/
+/*ë„ì„œë¥¼ ì£¼ë¬¸í•œì ì´ ìžˆëŠ” ê³ ê° ì•„ì´ë”” ì°¾ê¸°*/
 select custid from orders;
 
-/*°í°´ ¾ÆÀÌµð¿¡ ÇØ´çÇÏ´Â °í°´ ÀÌ¸§ Ã£±â*/
+/*ê³ ê° ì•„ì´ë””ì— í•´ë‹¹í•˜ëŠ” ê³ ê° ì´ë¦„ ì°¾ê¸°*/
 select name from customer where custid in (1,2,3,4);
 
-/*°í°´ ¾ÆÀÌµð¿¡ ÇØ´çÇÏ´Â °í°´ ÀÌ¸§ Ã£±â*/
+/*ê³ ê° ì•„ì´ë””ì— í•´ë‹¹í•˜ëŠ” ê³ ê° ì´ë¦„ ì°¾ê¸°*/
 select name from customer where custid in (select custid from orders);
 
-/*µµ¼­¸¦ ÁÖ¹®ÇÑ ÀûÀÌ ÀÖ´Â °í°´ÀÇ ÀÌ¸§*/
+/*ë„ì„œë¥¼ ì£¼ë¬¸í•œ ì ì´ ìžˆëŠ” ê³ ê°ì˜ ì´ë¦„*/
 select name from customer where custid in (select custid from orders);
 
-/*ÃâÆÇ»çº° ÃâÆÇ»çÀÇ Æò±Õº¸´Ù ºñ½Ñ µµ¼­*/
+/*ì¶œíŒì‚¬ë³„ ì¶œíŒì‚¬ì˜ í‰ê· ë³´ë‹¤ ë¹„ì‹¼ ë„ì„œ*/
 select b1.bookname from book b1 where b1.price > (select avg(b2.price) from book b2 where b2.publisher=b1.publisher);
 
